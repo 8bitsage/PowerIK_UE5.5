@@ -14,6 +14,8 @@ Unauthorized copying, selling or distribution of this software is strictly prohi
 
 #include "DrawDebugHelpers.h"
 
+#include "SceneManagement.h"
+
 #include <string.h>
 
 using PowerIK::Vec3;

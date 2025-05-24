@@ -38,7 +38,8 @@ public class PowerIKRuntime : ModuleRules
 
 				"ControlRig",
 				"RigVM",
-
+                "RenderCore",        
+                "RHI",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -46,9 +47,23 @@ public class PowerIKRuntime : ModuleRules
         PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
+                "Renderer",  
+                "StaticMeshDescription", 
 				// ... add private dependencies that you statically link with here ...
 			}
 			);
+
+        if (Target.bBuildEditor) // Only for Editor
+        {
+            PrivateDependencyModuleNames.AddRange(
+                new string[]
+                {
+                    "UnrealEd",
+                    "ToolMenus",
+                    "EditorStyle",
+                }
+            );
+        }
 
 
         DynamicallyLoadedModuleNames.AddRange(
