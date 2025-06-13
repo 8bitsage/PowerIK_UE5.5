@@ -609,6 +609,8 @@ void FPowerIKCore::CopySolverOutputToAnimGraph(
 		BoneTransform.SetTranslation(Vec3ToFVector(Position));
 		BoneTransform.SetRotation(QuatToFQuat(Rotation));
 
+		BoneTransform.NormalizeRotation(); // <--- ДОБАВЛЕНА ЭТА СТРОКА
+
 		// scale is passed through from input pose
 		FTransform ComponentSpace = Output.Pose.GetComponentSpaceTransform(FCompactPoseBoneIndex(i));
 		BoneTransform.SetScale3D(ComponentSpace.GetScale3D());
@@ -630,6 +632,9 @@ void FPowerIKCore::CopySolverOutputToControlRig(URigHierarchy* Hierarchy)
 		FTransform BoneTransform;
 		BoneTransform.SetTranslation(Vec3ToFVector(Position));
 		BoneTransform.SetRotation(QuatToFQuat(Rotation));
+
+		BoneTransform.NormalizeRotation(); // <--- ДОБАВЛЕНА ЭТА СТРОКА
+
 		Hierarchy->SetGlobalTransform(i, BoneTransform, false);
 	}
 }

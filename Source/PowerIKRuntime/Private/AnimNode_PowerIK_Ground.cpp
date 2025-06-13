@@ -201,7 +201,11 @@ void FAnimNode_PowerIK_Ground::RayCastEffectorToGround(
 			// store the ground normal under this foot
 			// convert world space normal into component space
 			FTransform WorldToComponent = ComponentToWorld.Inverse();
-			Foot.GroundNormal = WorldToComponent.TransformVector(OutHit.Normal);
+
+		    //Foot.GroundNormal = WorldToComponent.TransformVector(OutHit.Normal); old code without fix
+		    Foot.GroundNormal = WorldToComponent.TransformVectorNoScale(OutHit.Normal); // 12.06.25 fix for mesh scale
+		    Foot.GroundNormal.Normalize();      // длина = 1 12.06.25 fix for mesh scale
+		    
 			// store the component space position of this foot
 			FVector CompSpaceImpact = WorldToComponent.TransformPosition(OutHit.ImpactPoint);
 			// add the animated position as an offset
